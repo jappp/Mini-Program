@@ -38,14 +38,11 @@ module.exports = {
       patterns: [
         {
           from: path.resolve(srcdir, "cloudfunctions"),
-
           to: path.resolve(putdir, "cloudfunctions"),
         },
         {
           from: path.resolve(srcdir, "miniprogram"),
-
           to: path.resolve(putdir, "miniprogram"),
-
           globOptions: {
             ignore: ["**/*.js"],
           },
