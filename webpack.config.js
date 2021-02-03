@@ -2,24 +2,18 @@ const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
+const loadPath = require('./plugin/loadpath');
 const srcdir = path.resolve(__dirname, "src");
 const putdir = path.resolve(__dirname, "dist");
 
 module.exports = {
-  entry: {
-    app: path.resolve(srcdir, "miniprogram/app.js"),
-    "pages/cart/cart": path.resolve(srcdir, "miniprogram/pages/cart/cart.js"),
-    "pages/detail/detail": path.resolve(srcdir, "miniprogram/pages/detail/detail.js"),
-    "pages/index/index": path.resolve(srcdir, "miniprogram/pages/index/index.js"),
-    "pages/order/order": path.resolve(srcdir, "miniprogram/pages/order/order.js"),
-    "pages/submit/submit": path.resolve(srcdir, "miniprogram/pages/submit/submit.js"),
-  },
-
+  entry: (new loadPath).init({
+    src: path.resolve(srcdir, 'miniprogram/app.js')
+  }),
   output: {
     filename: "[name].js",
     path: path.resolve(putdir, "miniprogram"),
   },
-
   module: {
     rules: [
       {
@@ -28,12 +22,10 @@ module.exports = {
       },
     ],
   },
-
   plugins: [
     new CleanWebpackPlugin({
       cleanStaleWebpackAssets: false,
     }),
-
     new CopyPlugin({
       patterns: [
         {
